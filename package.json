@@ -4,7 +4,9 @@
   "description": "A system to register cars, travels, drivers and destinations for the PMC's transport sector",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev src/server.ts"
+    "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
+    "knex:seed": "knex --knexfile knexfile.ts seed:run"
   },
   "repository": {
     "type": "git",
