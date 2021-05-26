@@ -19,6 +19,18 @@ class DestinationsController {
 
         return response.json(destinations);
     }
+
+    async show ( request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const destinations = await 
+            knex('destinations')
+            .select('destination')
+            .where('id', id)
+            .first();
+
+        return response.json(destinations);
+    }
 }
 
 export default DestinationsController;

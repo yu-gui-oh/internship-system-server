@@ -25,6 +25,22 @@ routes.post('/create/drivers', driversController.create);
 routes.post('/create/destinations', destinationsController.create);
 routes.post('/create/travels', travelsController.create);
 
-routes.get('/list/passengers', passengersController.index);
 routes.get('/company/details', companyController.index);
+
+routes.get('/destinations/:id', destinationsController.show);
+
+routes.get('/list/passengers', passengersController.index);
+routes.get('/passengers', passengersController.listIDs);
+routes.get('/passengers/:id', passengersController.show);
+
+routes.get('/list/vehicles', vehiclesController.index);
+routes.get('/vehicles', vehiclesController.listIDs);
+routes.get('/vehicles/:id', vehiclesController.show);
+
+routes.get('/list/drivers', driversController.index);
+routes.get('/drivers', driversController.listIDs);
+routes.get('/drivers/:id', driversController.show);
+
+routes.get('/travels', travelsController.listIDs);
+routes.get('/travels/:id', travelsController.show);
 export default routes;

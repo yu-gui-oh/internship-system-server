@@ -25,7 +25,7 @@ class TravelsController {
             passengers_observations,
         } = request.body;
     
-        //const trx = await knex.transaction(); // transaction não está mais funcionando assim
+        const trx = await knex.transaction(); // transaction não está mais funcionando assim
         const travel = {
             departure_date,
             departure_hour,
@@ -43,7 +43,7 @@ class TravelsController {
             vacant_seats,
         };
 
-        const insertedIds = await knex('travels').insert(travel);
+        const insertedIds = await trx('travels').insert(travel);
     
         const travel_id = insertedIds[0];
         
@@ -57,11 +57,71 @@ class TravelsController {
             }
         });
 
-        await knex('travel_passengers').insert(travelPassengers);
+        await trx('travel_passengers').insert(travelPassengers);
     
+        await trx.commit();
+
         return response.json({
             travel,
             ...travelPassengers,
+        });
+    }
+
+    async listIDs ( request: Request, response: Response ) {
+        const travels = await knex('travels')
+            .join('destinations', 'travels.destination', '=', 'destinations.id')
+            .join('drivers', 'travels.driver', '=', 'drivers.id')
+            .select(
+                'travels.*', 
+                { driver_name: 'drivers.name' }, 
+                { destination_name: 'destinations.destination' },
+            );
+
+        const travelsArray = travels.map( travel => {
+            return {
+                id: travel.id,
+                destination: travel.destination_name,
+                departure_date: travel.departure_date,
+                status: travel.status,
+                driver: travel.driver_name,
+            }
+        });
+
+        return response.json(travelsArray);
+    }
+
+    async show ( request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const travels = await 
+            knex('travels')
+            .join('destinations', 'travels.destination', '=', 'destinations.id')
+            .join('drivers', 'travels.driver', '=', 'drivers.id')
+            .join('vehicles', 'travels.vehicle', '=', 'vehicles.id')
+            .select(
+                'travels.*', 
+                { driver_name: 'drivers.name' }, 
+                { destination_name: 'destinations.destination' }, 
+                { vehicle_name: 'vehicles.vehicle' },
+            )            
+            .where('travels.id', id)
+            .first();
+
+        const passengers = await
+            knex('passengers')
+            .join('travel_passengers', 'passengers.id', '=', 'travel_passengers.passenger_id')
+            .where('travel_passengers.travel_id', id)
+            .select(
+                'passengers.id', 
+                'name', 
+                'travel_passengers.destination', 
+                'companion', 
+                'travel_passengers.observation'
+            );
+
+        return response.json({
+            travels,
+            ...passengers
         });
     }
 }

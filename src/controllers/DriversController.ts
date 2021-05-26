@@ -27,6 +27,31 @@ class DriversController {
 
         return response.json(drivers);
     }
+
+    async listIDs ( request: Request, response: Response ) {
+        const drivers = await knex('drivers').select('*');
+
+        const driversArray = drivers.map( driver => {
+            return {
+                id: driver.id,
+                name: driver.name,
+            }
+        });
+
+        return response.json(driversArray);
+    }
+
+    async show ( request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const drivers = await 
+            knex('drivers')
+            .select('*')
+            .where('id', id)
+            .first();
+
+        return response.json(drivers);
+    }
 }
 
 export default DriversController;

@@ -48,7 +48,7 @@ class PassengersController {
 
 
     async index ( request: Request, response: Response ) {
-        const passengers = await knex('passengers').select('*');
+        const passengers = await knex('passengers').select('*').where('status', true);
 
         const passengersArray = passengers.map( passenger => {
             return {
@@ -73,6 +73,32 @@ class PassengersController {
         });
 
         return response.json(passengersArray);
+    }
+
+    async listIDs ( request: Request, response: Response ) {
+        const passengers = await knex('passengers').select('*').where('status', true);
+
+        const passengersArray = passengers.map( passenger => {
+            return {
+                id: passenger.id,
+                name: passenger.name,
+            }
+        });
+
+        return response.json(passengersArray);
+    }
+
+    async show ( request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const passengers = await 
+            knex('passengers')
+            .select('*')
+            .where('status', true)
+            .andWhere('id', id)
+            .first();
+
+        return response.json(passengers);
     }
 }
 
