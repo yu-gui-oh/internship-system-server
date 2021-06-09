@@ -28,6 +28,7 @@ routes.post('/create/travels', travelsController.create);
 routes.get('/company/details', companyController.index);
 
 routes.get('/destinations/:id', destinationsController.show);
+routes.get('/destinations', destinationsController.index);
 
 routes.get('/list/passengers', passengersController.index);
 routes.get('/passengers', passengersController.listIDs);
