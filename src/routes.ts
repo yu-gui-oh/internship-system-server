@@ -43,5 +43,6 @@ routes.get('/drivers', driversController.listIDs);
 routes.get('/drivers/:id', driversController.show);
 
 routes.get('/travels', travelsController.listIDs);
+routes.get('/travels/active', travelsController.listActive);
 routes.get('/travels/:id', travelsController.show);
 export default routes;
