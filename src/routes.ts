@@ -26,6 +26,7 @@ routes.post('/create/destinations', destinationsController.create);
 routes.post('/create/travels', travelsController.create);
 
 routes.get('/company/details', companyController.index);
+routes.post('/edit/company', companyController.update);
 
 routes.get('/destinations/:id', destinationsController.show);
 routes.get('/destinations', destinationsController.index);
@@ -42,7 +43,7 @@ routes.get('/list/drivers', driversController.index);
 routes.get('/drivers', driversController.listIDs);
 routes.get('/drivers/:id', driversController.show);
 
-routes.get('/travels', travelsController.listIDs);
+routes.get('/list/travels', travelsController.listIDs);
 routes.get('/travels/active', travelsController.listActive);
 routes.get('/travels/:id', travelsController.show);
 export default routes;

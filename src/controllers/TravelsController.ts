@@ -78,7 +78,9 @@ class TravelsController {
                 { driver_name: 'drivers.name' }, 
                 { destination_name: 'destinations.destination' },
                 { vehicle_name: 'vehicles.vehicle' }
-            );
+            )
+            .orderBy("travels.departure_date", "desc")
+            .where("travels.status", "Andamento");
 
         const travelsArray = travels.map( travel => {
             return {
@@ -105,6 +107,7 @@ class TravelsController {
                 { destination_name: 'destinations.destination' },
                 { vehicle_name: 'vehicles.vehicle' }
             )
+            .orderBy("travels.departure_date", "desc")
             .where("travels.status", "Andamento");
 
         const travelsArray = travels.map( travel => {
@@ -115,6 +118,7 @@ class TravelsController {
                 status: travel.status,
                 driver: travel.driver_name,
                 vehicle: travel.vehicle_name,
+                vacant_seats: travel.vacant_seats,
             }
         });
 
