@@ -9,11 +9,9 @@ class CompanyController {
     }
 
     async update (request: Request, response: Response ) {
-        const companyId = await knex('company').select('id');
-
         const newCompany = await knex('company')
                                     .update(request.body)
-                                    .where('id', companyId)
+                                    .where('id', 1);
 
         return response.json(newCompany);
     }

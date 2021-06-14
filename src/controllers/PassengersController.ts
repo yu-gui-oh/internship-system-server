@@ -100,6 +100,16 @@ class PassengersController {
 
         return response.json(passengers);
     }
+
+    async update (request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const newPassenger = await knex('passengers')
+                                    .update(request.body)
+                                    .where('id', id);
+
+        return response.json(newPassenger);
+    }
 }
 
 export default PassengersController;

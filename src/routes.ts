@@ -46,4 +46,6 @@ routes.get('/drivers/:id', driversController.show);
 routes.get('/list/travels', travelsController.listIDs);
 routes.get('/travels/active', travelsController.listActive);
 routes.get('/travels/:id', travelsController.show);
+
+routes.post('/edit/passenger/:id', passengersController.update);
 export default routes;
