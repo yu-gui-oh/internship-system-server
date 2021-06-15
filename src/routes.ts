@@ -48,4 +48,6 @@ routes.get('/travels/active', travelsController.listActive);
 routes.get('/travels/:id', travelsController.show);
 
 routes.post('/edit/passenger/:id', passengersController.update);
+routes.post('/edit/driver/:id', driversController.update);
+routes.post('/edit/vehicle/:id', vehiclesController.update);
 export default routes;

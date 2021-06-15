@@ -52,6 +52,16 @@ class DriversController {
 
         return response.json(drivers);
     }
+
+    async update (request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const newDriver = await knex('drivers')
+                                    .update(request.body)
+                                    .where('id', id);
+
+        return response.json(newDriver);
+    }
 }
 
 export default DriversController;

@@ -52,6 +52,16 @@ class VehiclesController {
 
         return response.json(vehicles);
     }
+
+    async update (request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const newVehicle = await knex('vehicles')
+                                    .update(request.body)
+                                    .where('id', id);
+
+        return response.json(newVehicle);
+    }
 }
 
 export default VehiclesController;
