@@ -142,22 +142,32 @@ class TravelsController {
             .where('travels.id', id)
             .first();
 
-        const passengers = await
-            knex('passengers')
-            .join('travel_passengers', 'passengers.id', '=', 'travel_passengers.passenger_id')
-            .where('travel_passengers.travel_id', id)
-            .select(
-                'passengers.id', 
-                'name', 
-                'travel_passengers.destination', 
-                'companion', 
-                'travel_passengers.observation'
-            );
+        // const passengers = await
+        //     knex('passengers')
+        //     .join('travel_passengers', 'passengers.id', '=', 'travel_passengers.passenger_id')
+        //     .where('travel_passengers.travel_id', id)
+        //     .select(
+        //         'passengers.id', 
+        //         'name', 
+        //         'travel_passengers.destination', 
+        //         'companion', 
+        //         'travel_passengers.observation'
+        //     );
 
         return response.json({
             travels,
-            ...passengers
+            // ...passengers
         });
+    }
+
+    async update (request: Request, response: Response ) {
+        const { id } = request.params;
+
+        const newTravel = await knex('travels')
+                                    .update(request.body)
+                                    .where('id', id);
+
+        return response.json(newTravel);
     }
 }
 
