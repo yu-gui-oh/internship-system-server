@@ -62,6 +62,19 @@ class DriversController {
 
         return response.json(newDriver);
     }
+
+    async listSearch ( request: Request, response: Response ) {
+        const { searchParam } = request.params;
+
+        const drivers = await knex('drivers')
+            .select('*')
+            .where('drivers.name', searchParam)
+            .orWhere('drivers.cpf', searchParam)
+            .orWhere('drivers.cnh', searchParam)
+            .orWhere('drivers.cel_phone', searchParam);
+
+        return response.json(drivers);
+    }
 }
 
 export default DriversController;

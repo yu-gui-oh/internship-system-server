@@ -79,8 +79,7 @@ class TravelsController {
                 { destination_name: 'destinations.destination' },
                 { vehicle_name: 'vehicles.vehicle' }
             )
-            .orderBy("travels.departure_date", "desc")
-            .where("travels.status", "Andamento");
+            .orderBy("travels.departure_date", "desc");
 
         const travelsArray = travels.map( travel => {
             return {
@@ -168,6 +167,36 @@ class TravelsController {
                                     .where('id', id);
 
         return response.json(newTravel);
+    }
+
+    async listSearch ( request: Request, response: Response ) {
+        const { searchParams } = request.params;
+        
+        const travels = await knex('travels')
+            .join('destinations', 'travels.destination', '=', 'destinations.id')
+            .join('drivers', 'travels.driver', '=', 'drivers.id')
+            .join('vehicles', 'travels.vehicle', '=', 'vehicles.id')
+            .select(
+                'travels.*', 
+                { driver_name: 'drivers.name' }, 
+                { destination_name: 'destinations.destination' },
+                { vehicle_name: 'vehicles.vehicle' }
+            )
+            .where('travels.departure_date', searchParams)
+            .orderBy("travels.departure_date", "desc");
+
+        const travelsArray = travels.map( travel => {
+            return {
+                id: travel.id,
+                destination: travel.destination_name,
+                departure_date: travel.departure_date,
+                status: travel.status,
+                driver: travel.driver_name,
+                vehicle: travel.vehicle_name,
+            }
+        });
+
+        return response.json(travelsArray);
     }
 }
 
