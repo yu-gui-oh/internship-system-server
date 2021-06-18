@@ -54,4 +54,5 @@ routes.post('/edit/travel/:id', travelsController.update);
 
 routes.get('/travels/search/:searchParam', travelsController.listSearch);
 routes.get('/drivers/search/:searchParam', driversController.listSearch);
+routes.get('/passengers/search/:searchParam', passengersController.listSearch);
 export default routes;

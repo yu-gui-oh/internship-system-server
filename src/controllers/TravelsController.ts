@@ -79,7 +79,7 @@ class TravelsController {
                 { destination_name: 'destinations.destination' },
                 { vehicle_name: 'vehicles.vehicle' }
             )
-            .orderBy("travels.departure_date", "desc");
+            .orderBy("travels.departure_date", "asc");
 
         const travelsArray = travels.map( travel => {
             return {
@@ -106,7 +106,7 @@ class TravelsController {
                 { destination_name: 'destinations.destination' },
                 { vehicle_name: 'vehicles.vehicle' }
             )
-            .orderBy("travels.departure_date", "desc")
+            .orderBy("travels.departure_date", "asc")
             .where("travels.status", "Andamento");
 
         const travelsArray = travels.map( travel => {
@@ -182,8 +182,8 @@ class TravelsController {
                 { destination_name: 'destinations.destination' },
                 { vehicle_name: 'vehicles.vehicle' }
             )
-            .where('travels.departure_date', searchParams)
-            .orderBy("travels.departure_date", "desc");
+            .where(`travels.departure_date`, '=', `${searchParams}`)
+            .orderBy("travels.departure_date", "asc");
 
         const travelsArray = travels.map( travel => {
             return {

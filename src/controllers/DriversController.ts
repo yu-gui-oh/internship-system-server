@@ -68,10 +68,10 @@ class DriversController {
 
         const drivers = await knex('drivers')
             .select('*')
-            .where('drivers.name', searchParam)
-            .orWhere('drivers.cpf', searchParam)
-            .orWhere('drivers.cnh', searchParam)
-            .orWhere('drivers.cel_phone', searchParam);
+            .where('drivers.name', 'like', `%${searchParam}%`)
+            .orWhere('drivers.cpf', 'like', `%${searchParam}%`)
+            .orWhere('drivers.cnh', 'like', `%${searchParam}%`)
+            .orWhere('drivers.cel_phone', 'like', `%${searchParam}%`);
 
         return response.json(drivers);
     }

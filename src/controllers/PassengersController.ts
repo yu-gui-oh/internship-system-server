@@ -110,6 +110,23 @@ class PassengersController {
 
         return response.json(newPassenger);
     }
+
+    async listSearch ( request: Request, response: Response ) {
+        const { searchParam } = request.params;
+
+        const passengers = await knex('passengers')
+            .select('*')
+            .where('passengers.name', 'like', `%${searchParam}%`)
+            .orWhere('passengers.cpf', 'like', `%${searchParam}%`)
+            .orWhere('passengers.rg', 'like', `%${searchParam}%`)
+            .orWhere('passengers.address', 'like', `%${searchParam}%`)
+            .orWhere('passengers.neighbourhood', 'like', `%${searchParam}%`)
+            .orWhere('passengers.cell_phone', 'like', `%${searchParam}%`)
+            .orWhere('passengers.phone', 'like', `%${searchParam}%`)
+            .orWhere('passengers.birth_date', 'like', `%${searchParam}%`)
+
+        return response.json(passengers);
+    }
 }
 
 export default PassengersController;
