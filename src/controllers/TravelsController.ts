@@ -170,8 +170,8 @@ class TravelsController {
     }
 
     async listSearch ( request: Request, response: Response ) {
-        const { searchParams } = request.params;
-        
+        const { searchParam } = request.params;
+
         const travels = await knex('travels')
             .join('destinations', 'travels.destination', '=', 'destinations.id')
             .join('drivers', 'travels.driver', '=', 'drivers.id')
@@ -182,7 +182,7 @@ class TravelsController {
                 { destination_name: 'destinations.destination' },
                 { vehicle_name: 'vehicles.vehicle' }
             )
-            .where(`travels.departure_date`, '=', `${searchParams}`)
+            .where('travels.departure_date', 'like', `%${searchParam}%`)
             .orderBy("travels.departure_date", "asc");
 
         const travelsArray = travels.map( travel => {
@@ -193,6 +193,7 @@ class TravelsController {
                 status: travel.status,
                 driver: travel.driver_name,
                 vehicle: travel.vehicle_name,
+                vacant_seats: travel.vacant_seats,
             }
         });
 
