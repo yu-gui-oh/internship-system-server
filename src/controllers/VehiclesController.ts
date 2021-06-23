@@ -62,6 +62,18 @@ class VehiclesController {
 
         return response.json(newVehicle);
     }
+
+    async listSearch ( request: Request, response: Response ) {
+        const { searchParam } = request.params;
+
+        const vehicles = await knex('vehicles')
+            .select('*')
+            .where('vehicles.plate', 'like', `%${searchParam}%`)
+            .orWhere('vehicles.type', 'like', `%${searchParam}%`)
+            .orWhere('vehicles.vehicle', 'like', `%${searchParam}%`);
+
+        return response.json(vehicles);
+    }
 }
 
 export default VehiclesController;

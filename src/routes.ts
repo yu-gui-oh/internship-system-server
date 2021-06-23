@@ -32,7 +32,7 @@ routes.get('/destinations/:id', destinationsController.show);
 routes.get('/destinations', destinationsController.index);
 
 routes.get('/list/passengers', passengersController.index);
-routes.get('/passengers', passengersController.listIDs);
+routes.get('/passengers/:passengerSearchParam', passengersController.listIDs);
 routes.get('/passengers/:id', passengersController.show);
 
 routes.get('/list/vehicles', vehiclesController.index);
@@ -55,4 +55,5 @@ routes.post('/edit/travel/:id', travelsController.update);
 routes.get('/travels/search/:searchParam', travelsController.listSearch);
 routes.get('/drivers/search/:searchParam', driversController.listSearch);
 routes.get('/passengers/search/:searchParam', passengersController.listSearch);
+routes.get('/vehicles/search/:searchParam', vehiclesController.listSearch);
 export default routes;

@@ -76,12 +76,25 @@ class PassengersController {
     }
 
     async listIDs ( request: Request, response: Response ) {
-        const passengers = await knex('passengers').select('*').where('status', true);
+        const { passengerSearchParam } = request.params;
+        
+        const passengers = await 
+            knex('passengers')
+            .select('*')
+            .where('passengers.name', 'like', `%${passengerSearchParam}%`)
+            .orWhere('passengers.cpf', 'like', `%${passengerSearchParam}%`)
+            .orWhere('passengers.rg', 'like', `%${passengerSearchParam}%`)
+            .orWhere('passengers.address', 'like', `%${passengerSearchParam}%`)
+            .orWhere('passengers.neighbourhood', 'like', `%${passengerSearchParam}%`)
+            .orWhere('passengers.cell_phone', 'like', `%${passengerSearchParam}%`)
+            .orWhere('passengers.phone', 'like', `%${passengerSearchParam}%`)
+            .andWhere('status', true);
 
         const passengersArray = passengers.map( passenger => {
             return {
                 id: passenger.id,
                 name: passenger.name,
+                cpf: passenger.cpf,
             }
         });
 
