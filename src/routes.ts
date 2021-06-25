@@ -7,6 +7,7 @@ import DriversController from './controllers/DriversController';
 import DestinationsController from './controllers/DestinationsController';
 import TravelsController from './controllers/TravelsController';
 import CompanyController from './controllers/CompanyController';
+import TravelPassengersController from './controllers/TravelPassengersController';
 
 const routes = express.Router();
 
@@ -17,6 +18,7 @@ const driversController = new DriversController();
 const destinationsController = new DestinationsController();
 const travelsController = new TravelsController();
 const companyController = new CompanyController();
+const travelPassengersController = new TravelPassengersController();
 
 routes.post('/create/users', usersController.create);
 routes.post('/create/vehicles', vehiclesController.create);
@@ -56,4 +58,9 @@ routes.get('/travels/search/:searchParam', travelsController.listSearch);
 routes.get('/drivers/search/:searchParam', driversController.listSearch);
 routes.get('/passengers/search/:searchParam', passengersController.listSearch);
 routes.get('/vehicles/search/:searchParam', vehiclesController.listSearch);
+
+routes.post('/new/travel/passengers', travelPassengersController.insertPassengers);
+routes.get('/list/travel/passengers', travelPassengersController.getTravelPassengers);
+routes.post('/delete/travel/passengers', travelPassengersController.deleteTravelPassenger);
+
 export default routes;
