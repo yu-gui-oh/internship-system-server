@@ -34,7 +34,7 @@ routes.get('/destinations/:id', destinationsController.show);
 routes.get('/destinations', destinationsController.index);
 
 routes.get('/list/passengers', passengersController.index);
-routes.get('/passengers/:passengerSearchParam', passengersController.listIDs);
+routes.get('/passengers/agendamento/:passengerSearchParam', passengersController.listIDs);
 routes.get('/passengers/:id', passengersController.show);
 
 routes.get('/list/vehicles', vehiclesController.index);
