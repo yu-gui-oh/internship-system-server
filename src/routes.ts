@@ -60,7 +60,7 @@ routes.get('/passengers/search/:searchParam', passengersController.listSearch);
 routes.get('/vehicles/search/:searchParam', vehiclesController.listSearch);
 
 routes.post('/new/travel/passengers', travelPassengersController.insertPassengers);
-routes.get('/list/travel/passengers', travelPassengersController.getTravelPassengers);
+routes.get('/list/travel/passengers/:id', travelPassengersController.getTravelPassengers);
 routes.post('/delete/travel/passengers', travelPassengersController.deleteTravelPassenger);
 
 export default routes;
