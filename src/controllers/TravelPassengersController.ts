@@ -105,7 +105,9 @@ class TravelPassengersController {
     }
 
     async deleteTravelPassenger ( request: Request, response: Response ) {
-        const { passenger_id, companion, travel_id } = request.body;
+        const { passenger_id, 
+                // companion, 
+                travel_id } = request.body;
 
         const trx = await knex.transaction(); 
 

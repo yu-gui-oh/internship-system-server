@@ -77,7 +77,12 @@ class PassengersController {
 
     async listIDs ( request: Request, response: Response ) {
         const { passengerSearchParam } = request.params;
-        
+
+        // const passengersInTravel = await
+        //     knex('travel_passengers')
+        //     .select('passenger_id')
+        //     .where('travel_id', travelId);
+
         const passengers = await 
             knex('passengers')
             .select('*')
