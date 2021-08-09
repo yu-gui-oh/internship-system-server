@@ -35,6 +35,7 @@ class VehiclesController {
             return {
                 id: vehicle.id,
                 vehicle: vehicle.vehicle,
+                plate: vehicle.plate,
             }
         });
 

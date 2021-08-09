@@ -181,7 +181,8 @@ class TravelsController {
                 'travels.*', 
                 { driver_name: 'drivers.name' }, 
                 { destination_name: 'destinations.destination' },
-                { vehicle_name: 'vehicles.vehicle' }
+                { vehicle_name: 'vehicles.vehicle' },
+                { vehicle_plate: 'vehicles.plate' }
             )
             .orderBy("travels.departure_date", "asc");
 
@@ -192,7 +193,7 @@ class TravelsController {
                 departure_date: travel.departure_date,
                 status: travel.status,
                 driver: travel.driver_name,
-                vehicle: travel.vehicle_name,
+                vehicle: travel.vehicle_name + ' ' + travel.vehicle_plate,
             }
         });
 
@@ -208,7 +209,8 @@ class TravelsController {
                 'travels.*', 
                 { driver_name: 'drivers.name' }, 
                 { destination_name: 'destinations.destination' },
-                { vehicle_name: 'vehicles.vehicle' }
+                { vehicle_name: 'vehicles.vehicle' },
+                { vehicle_plate: 'vehicles.plate' }
             )
             .orderBy("travels.departure_date", "asc")
             .where("travels.status", "Andamento");
@@ -218,9 +220,10 @@ class TravelsController {
                 id: travel.id,
                 destination: travel.destination_name,
                 departure_date: travel.departure_date,
+                departure_hour: travel.departure_hour,
                 status: travel.status,
                 driver: travel.driver_name,
-                vehicle: travel.vehicle_name,
+                vehicle: travel.vehicle_name + ' ' + travel.vehicle_plate,
                 vacant_seats: travel.vacant_seats,
             }
         });
@@ -284,7 +287,8 @@ class TravelsController {
                 'travels.*', 
                 { driver_name: 'drivers.name' }, 
                 { destination_name: 'destinations.destination' },
-                { vehicle_name: 'vehicles.vehicle' }
+                { vehicle_name: 'vehicles.vehicle' },
+                { vehicle_plate: 'vehicles.plate' }
             )
             .where('travels.departure_date', 'like', `%${searchParam}%`)
             .orderBy("travels.departure_date", "asc");
@@ -296,7 +300,7 @@ class TravelsController {
                 departure_date: travel.departure_date,
                 status: travel.status,
                 driver: travel.driver_name,
-                vehicle: travel.vehicle_name,
+                vehicle: travel.vehicle_name + ' ' + travel.vehicle_plate,
                 vacant_seats: travel.vacant_seats,
             }
         });
